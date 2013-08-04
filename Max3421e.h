@@ -16,7 +16,6 @@ class MAX3421E /* : public SPI */ {
     public:
         MAX3421E( void );
         byte getVbusState( void );
-//        void toggle( byte pin );
         static void regWr( byte, byte );
         char * bytesWr( byte, byte, char * );
         static void gpioWr( byte );
@@ -46,11 +45,6 @@ class MAX3421E /* : public SPI */ {
         tmp = SPSR;
         tmp = SPDR;
     }
-//        void init();
-    friend class Max_LCD;        
 };
-
-
-
 
 #endif //_MAX3421E_H_

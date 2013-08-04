@@ -24,13 +24,6 @@
 #define MAX_GPX   8
 #define MAX_RESET 7
 
-/* "Breakpoint" pins for debugging */
-//#define BPNT_0      3
-//#define BPNT_1      2
-     
-//#define Select_MAX3421E     digitalWrite(MAX_SS,LOW)
-//#define Deselect_MAX3421E   digitalWrite(MAX_SS,HIGH)
-
 /* */
 
 #define ON  true

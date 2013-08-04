@@ -2,7 +2,6 @@
 /* MAX3421E USB host controller support */
 
 #include "Max3421e.h"
-// #include "Max3421e_constants.h"
 
 static byte vbusState;
 
@@ -24,30 +23,6 @@ byte MAX3421E::getVbusState( void )
 { 
     return( vbusState );
 }
-/* initialization */
-//void MAX3421E::init()
-//{
-//    /* setup pins */
-//    pinMode( MAX_INT, INPUT);
-//    pinMode( MAX_GPX, INPUT );
-//    pinMode( MAX_SS, OUTPUT );
-//    //pinMode( BPNT_0, OUTPUT );
-//    //pinMode( BPNT_1, OUTPUT );
-//    //digitalWrite( BPNT_0, LOW );
-//    //digitalWrite( BPNT_1, LOW );
-//    Deselect_MAX3421E;              
-//    pinMode( MAX_RESET, OUTPUT );
-//    digitalWrite( MAX_RESET, HIGH );  //release MAX3421E from reset
-//}
-//byte MAX3421E::getVbusState( void )
-//{
-//    return( vbusState );
-//}
-//void MAX3421E::toggle( byte pin )
-//{
-//    digitalWrite( pin, HIGH );
-//    digitalWrite( pin, LOW );
-//}
 /* Single host register write   */
 void MAX3421E::regWr( byte reg, byte val)
 {
@@ -146,21 +121,6 @@ boolean MAX3421E::reset()
 ///* OVERLOAD state low. NO OVERLOAD or VBUS OFF state high.              */
 boolean MAX3421E::vbusPwr ( boolean action )
 {
-//  byte tmp;
-//    tmp = regRd( rIOPINS2 );                //copy of IOPINS2
-//    if( action ) {                          //turn on by setting GPOUT7
-//        tmp |= bmGPOUT7;
-//    }
-//    else {                                  //turn off by clearing GPOUT7
-//        tmp &= ~bmGPOUT7;
-//    }
-//    regWr( rIOPINS2, tmp );                 //send GPOUT7
-//    if( action ) {
-//        delay( 60 );
-//    }
-//    if (( regRd( rIOPINS2 ) & bmGPIN7 ) == 0 ) {     // check if overload is present. MAX4793 /FLAG ( pin 4 ) goes low if overload
-//        return( false );
-//    }                      
     return( true );                                             // power on/off successful                       
 }
 /* probe bus to determine device presense and speed and switch host to this speed */
@@ -233,7 +193,6 @@ byte MAX3421E::Task( void )
     if( pinvalue == LOW ) {
         GpxHandler();
     }
-//    usbSM();                                //USB state machine                            
     return( rcode );   
 }   
 byte MAX3421E::IntHandler()
@@ -255,17 +214,5 @@ byte MAX3421E::IntHandler()
 byte MAX3421E::GpxHandler()
 {
  byte GPINIRQ = regRd( rGPINIRQ );          //read GPIN IRQ register
-//    if( GPINIRQ & bmGPINIRQ7 ) {            //vbus overload
-//        vbusPwr( OFF );                     //attempt powercycle
-//        delay( 1000 );
-//        vbusPwr( ON );
-//        regWr( rGPINIRQ, bmGPINIRQ7 );
-//    }       
     return( GPINIRQ );
 }
-
-//void MAX3421E::usbSM( void )                //USB state machine
-//{
-//    
-//
-//}
