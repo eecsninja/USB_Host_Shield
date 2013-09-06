@@ -3,13 +3,15 @@
 #ifndef _MAX3421E_H_
 #define _MAX3421E_H_
 
-// Arduino 1.0 compatibility
-#if defined(ARDUINO) && ARDUINO >= 100
-    #include <Arduino.h>
-#else
-    #include <WProgram.h>
-#endif
+#include <stdint.h>
+
 #include "Max3421e_constants.h"
+
+typedef uint8_t byte;
+typedef uint8_t boolean;
+
+#define LOW    0
+#define HIGH   1
 
 class MAX3421E /* : public SPI */ {
     // byte vbusState;
@@ -29,22 +31,6 @@ class MAX3421E /* : public SPI */ {
         byte IntHandler();
         byte GpxHandler();
         byte Task();
-    private:
-      static void spi_init() {
-        uint8_t tmp;
-        // initialize SPI pins
-        pinMode(SCK_PIN, OUTPUT);
-        pinMode(MOSI_PIN, OUTPUT);
-        pinMode(MISO_PIN, INPUT);
-        pinMode(SS_PIN, OUTPUT);
-        digitalWrite( SS_PIN, HIGH ); 
-        /* mode 00 (CPOL=0, CPHA=0) master, fclk/2. Mode 11 (CPOL=11, CPHA=11) is also supported by MAX3421E */
-        SPCR = 0x50;
-        SPSR = 0x01;
-        /**/
-        tmp = SPSR;
-        tmp = SPDR;
-    }
 };
 
 #endif //_MAX3421E_H_

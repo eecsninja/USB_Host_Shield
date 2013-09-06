@@ -6,6 +6,8 @@
 
 /* SPI pins for diffrent Arduinos */
 
+#if defined(ARDUINO)
+
 #if defined(__AVR_ATmega1280__) || (__AVR_ATmega2560__)
   #define SCK_PIN   52
   #define MISO_PIN  50
@@ -23,6 +25,8 @@
 #define MAX_INT   9
 #define MAX_GPX   8
 #define MAX_RESET 7
+
+#endif  // defined(ARDUINO)
 
 /* */
 
