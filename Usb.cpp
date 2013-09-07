@@ -1,6 +1,8 @@
 /* Copyright 2009-2011 Oleg Mazurov, Circuits At Home, http://www.circuitsathome.com */
 /* USB functions */
 
+#include <stdio.h>
+
 #include "Usb.h"
 
 static byte usb_error = 0;
@@ -76,8 +78,7 @@ byte USB::ctrlReq( byte addr, byte ep, byte bmReqType, byte bRequest, byte wValL
     rcode = dispatchPkt( tokSETUP, ep, nak_limit );            //dispatch packet
     //Serial.println("Setup packet");   //DEBUG
     if( rcode ) {                                   //return HRSLT if not zero
-        Serial.print("Setup packet error: ");
-        Serial.print( rcode, HEX );                                          
+        printf("Setup packet error: 0x%02x\n", rcode);
         return( rcode );
     }
     //Serial.println( direction, HEX ); 
@@ -85,8 +86,7 @@ byte USB::ctrlReq( byte addr, byte ep, byte bmReqType, byte bRequest, byte wValL
         rcode = ctrlData( addr, ep, nbytes, dataptr, direction );
     }
     if( rcode ) {   //return error
-        Serial.print("Data packet error: ");
-        Serial.print( rcode, HEX );                                          
+        printf("Data packet error: 0x%02x\n", rcode);
         return( rcode );
     }
     rcode = ctrlStatus( ep, direction );                //status stage
